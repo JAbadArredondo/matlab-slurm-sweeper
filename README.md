@@ -50,7 +50,29 @@ This tab contains the details to configre the ssh connection to the HPC cluster.
 Once the details are introduced, you can hit the *Test Connection* button, to test that the connection is possible. 
 
 #### <ins> Jobs Configuration </ins>
+This tab contains all the specifications to determine the possible jobs to launch in the HPC. The available options are:
+| Field | type | Description|
+|------|-----|--------------|
+| Ignore State | on/off | Ignores occupation state of the nodes in the HPC cluster and assumes all nodes are *idle*. Enabling this option directly overrides the *Use Mixed* option (see below). |
+| Use Mixed | on/off | If enabled, the program will use the available resources in nodes that have *mixed* status (not completely filled). |
+| Fill Nodes | on/off | If enabled, the program will assign free CPUs (that couldn't be assigned to a new job due to insufficient memory or CPU count) to existing available jobs, increasing resources. |
+| Random Distrib | on/off | If enabled, the available jobs are shuffled in order. By default the jobs are sequentially ordered by compute node.|
+| Bigger First | on/off | If enabled, the job list is ordered by decreasing number of CPUs assigned to each job. |
+| Prefered CPUs | integer | Default number of CPUs to assign to each job. |
+| Min. CPUs | integer | If insufficient CPUs to assign the preferred number of CPUs to a job, this stablishes the minimum number of CPUs acceptable to be assigned to a job. |
+| Minimum Memory | numeric | Minimum amount of total memory (in MB) that has to be reserved for a given job. |
+| Delete Queues | string | Comma-separated list of the queues that the user may want to exclude from the job generation. By default, the program generates possible jobs to fill the complete cluster. To see the Queues that exist in the cluster, I implement the *List Queues* button. |
+| Delete Nodes | string | Comma-separated list of the compute nodes that the user may want to exclude from the job generation. By default, the program generates possible jobs to fill the complete cluster. To see the Nodes that exist in the cluster, I implement the *List Nodes* button. |
 
+**Note about the behavior regarding minimum resources**: By default the program checks whether the most astringent limitation is placed on #CPU or total Memory, and increases the resource assignment to the counterpart, redistributing the excess, making the most of the cluster resources. 
+
+A series of buttns are provided to help setting up the resource allocation and limits. These are: 
+| Button | Effect | 
+|------|-----|
+| Cluster State | on/off | 
+| List Queues | on/off | 
+| List Nodes | on/off | 
+| Enumerate Possible Jobs | on/off | 
 
 ### **ClusterUpdateDataSyncUI**: Synchronizing Results,
 ## Requirements
