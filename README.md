@@ -197,10 +197,14 @@ Written in Matlab 2025b and tested with a cluster running CentOS Linux release 7
 Future versions will include functionality to monitor and manage pending and running jobs, by cancelling them or re-launching them with different characteristics. 
 
 ## Author and Citation
-Jaime Abad Arredondo, I can be contacted at jaimeabadarredondo(at)gmail.com. If you find this code useful, please consider referencing it by referencing its, **and note about future DOI.**
+Code written by Jaime Abad Arredondo, I can be contacted at jaimeabadarredondo(at)gmail.com. If you find this code useful, please consider referencing it by citing its, **and note about future DOI.**
 
 ## License
-License badge and statement.
+This project is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.  
+
+You are free to use, modify, and redistribute this software under the terms of the AGPL. This license ensures that any modified versions made available over a network must also provide access to the source code.  
+
+For full license text, see [LICENSE](./LICENSE) or visit: [https://www.gnu.org/licenses/agpl-3.0.html](https://www.gnu.org/licenses/agpl-3.0.html)
 
 
 [^1]: David Freedman (2025). SSH/SFTP/SCP For Matlab (v2) (https://es.mathworks.com/matlabcentral/fileexchange/35409-ssh-sftp-scp-for-matlab-v2), MATLAB Central File Exchange. Accessed 12 November, 2025.
