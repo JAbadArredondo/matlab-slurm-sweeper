@@ -64,14 +64,15 @@ jobLayout.RowSpacing = 5;
 
 
 % Row 1: checkboxes
-checkLayout = uigridlayout(jobLayout, [1, 5]);
+checkLayout = uigridlayout(jobLayout, [1, 6]);
 checkLayout.Layout.Row = 1; checkLayout.Layout.Column = [1 4];
-checkLayout.ColumnWidth = {'1x','1x','1x','1x','1x'};
+checkLayout.ColumnWidth = {'1x','1x','1x','1x','1x','1x'};
 ignoreState = uicheckbox(checkLayout, 'Text', 'Ignore State', 'ValueChangedFcn', @(src,event) toggleUseMixed());
 useMixed = uicheckbox(checkLayout, 'Text', 'Use Mixed');
 fillNodes = uicheckbox(checkLayout, 'Text', 'Fill Nodes');
 randomDistrib = uicheckbox(checkLayout, 'Text', 'Random Distrib');
 biggerFirst = uicheckbox(checkLayout, 'Text', 'Bigger First');
+ForceNodeExec = uicheckbox(checkLayout, 'Text', 'Force Node execution');
 
 % Numeric fields
 lbl = uilabel(jobLayout, 'Text', 'Prefered CPUs:'); lbl.Layout.Row = 2; lbl.Layout.Column = 1;
@@ -624,7 +625,7 @@ end
 
     end
 
-    function P_jobs=EnumeratePossibleJobs(S,lookout_queues)
+    function P_jobs=EnumeratePossibleJobs(S,lookout_queues,flag_force_node_exec)
 
         P_jobs=[];
         %I change the order, before it was
@@ -672,7 +673,11 @@ end
         %Add the node control column
         node_control=cell(size(P_jobs,1),1);
         for i=1:size(P_jobs,1)
-            node_control{i}=any(strcmp(P_jobs(i,1),lookout_queues));
+            if flag_force_node_exec
+                node_control{i}=true;
+            else
+                node_control{i}=any(strcmp(P_jobs(i,1),lookout_queues));
+            end
         end
 
         %Get the memory or cpu bound message to the end
@@ -710,7 +715,7 @@ end
 
         [S_valid,lookout_queues]=getFilteredClusterState(false,false);
 
-        P_jobs=EnumeratePossibleJobs(S_valid,lookout_queues);
+        P_jobs=EnumeratePossibleJobs(S_valid,lookout_queues,ForceNodeExec.Value);
 
         try
             % --- Build log string ---
@@ -847,7 +852,7 @@ end
         %1) Get cluster state and possible Jobs according to user
         %specifications
         [S_valid,lookout_queues]=getFilteredClusterState(false,false);
-        P_jobs=EnumeratePossibleJobs(S_valid,lookout_queues);
+        P_jobs=EnumeratePossibleJobs(S_valid,lookout_queues,ForceNodeExec.Value);
 
         logToLog(sprintf('%d Jobs according to user specifications',size(P_jobs,1)));
 
