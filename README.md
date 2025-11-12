@@ -161,7 +161,9 @@ In this section we find several UI components:
 
 ### **ClusterUpdateDataSyncUI**: Synchronizing Results,
 This program is designed to automatize the workflow of fetching the result files from a parametric sweep generated with **ClusterJobDistributorUI**. It can also update running jobs to fetch the most up to date files. 
-The program is also structured with tabs containing the different settings and parameters that configure the different functionalities. In what follows, I list the different tabs and explain the different fields: 
+The program is also structured with tabs containing the different settings and parameters that configure the different functionalities. In what follows, I list the different tabs and explain the different fields.
+
+**Note:** like ClusterJobDistributorUI, ClusterUpdateDataSyncUI is designed to autosave its configuration upon closing, so that following sessions of the program maintain the last settings.
 
 #### **<ins> Cluster Settings </ins>**
 This tab contains the details to configre the ssh connection to the HPC cluster. You can specify the Hostname, username and your password. Note that Hostname and Username will be stored between sessions, but the password will not. 
@@ -169,11 +171,27 @@ This tab contains the details to configre the ssh connection to the HPC cluster.
 Once the details are introduced, you can hit the *Test Connection* button, to test that the connection is possible. 
 
 #### **<ins> File Management </ins>**
-This tab controls which remote folders contain the data to fetch and where to copy this data. 
+This tab controls which remote folders contain the data to fetch and where to copy this data. The different components of the UI are:
+|Component|Functionality|
+|----|----|
+|Base Remote Folder| Specify the parent folder in the cluster where the different jobs are  running. i.e. a parametric sweep produces folders 1 to N located in /Remote_Path/, then in this field specify /Remote_Path/ |
+|Base Local Folder| Specify the folder in which you want to download the result data.|
+|Files to fetch|List of comma separated filenames that the program will fetch from the different folders in the *Base Remote Folder*. You can use wildcards and the program will download files that match the given patterns.|
+|Append Parent Folder|When enabled, the name of the files to fetch is modified by appending at the end the numeric label of the particular folder from which the result is obtained. Again, if the particular desire file is Result.ext and is in the path /Remote_Path/N/, then the copied file will be named Result_N.ext. This is useful if the desired files to fetch are all named the same. |
+|Multiple target folders| When enabled, an extra table is enabled with the columns *Remote subfolder* and *Local Subfolder*. This option extends the funcitonality of the program to fetch data from multiple different parametric sweeps that are hosted in the same remote path. For instance, for a base remote folder */Remote_Path/*, local base folder */Local_Path/*, this option enabled, entries *a_rem*, *b_rem* in the Remote Subfolder column, and entries *a_loc*, *b_loc* in the Local Target column, the program fetches the desired files from */Remote_Path/a_rem/* to */Local_Path/a_loc/* and from */Remote_Path/b_rem/* to */Local_Path/b_loc/*. |
+|Add Row| Adds a new remote and local target combination to the sync list|
+|Remove Selected| With a subfolder selected, hitting this button removes a subfolder pair from the table. |
 
+#### **<ins> Execution </ins>**
+This tab controls the data syncyng procedure between remote and local folders.\
+The button *Run data sync.* goes through the remote folders specified in the *File Management* tab, and downloads the desired files to the corresponding local paths. If desired, the option *Update folders before sync* updates the remote folders so that if they are running, updated data is fetched.
+
+Additionally, **Save/Load configuration** capabilities is added, where upon hitting the corresponding buttons, a UI file explorer is invoked so that the user can specify where to save the current configuration, as well as to where to load the configuration from. To avoid security problems, the user passwords are not stored by default.  
+
+**In summary**, the ClusterUpdateDataSyncUI automates the post-processing stage of distributed simulations by providing a simple interface to retrieve, update, and organize result files from remote clusters. It allows users to selectively synchronize output data from ongoing or completed parametric sweeps, supporting multiple target folders and wildcard file matching for flexible retrieval. This ensures that all results are consistently fetched and stored in the desired local structure, minimizing manual file handling and making the transition from computation to data analysis seamless.
 
 ## Requirements
-Written in Matlab 2025b and tested in a , Slurm, etc.
+Written in Matlab 2025b and tested with a cluster running CentOS Linux release 7.9.2009 (Core), with Slurm 19.05.2.
 
 ## Future Work
 Future versions will include functionality to monitor and manage pending and running jobs, by cancelling them or re-launching them with different characteristics. 
