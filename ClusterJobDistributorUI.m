@@ -58,40 +58,14 @@ dummy = uilabel(clusterLayout, 'Text', ''); dummy.Layout.Row = 4; dummy.Layout.C
 tab2 = uitab(tg, 'Title', 'Jobs Configuration');
 jobLayout = uigridlayout(tab2, [10, 4]);  % 4 columns
 jobLayout.ColumnWidth = {'fit','1x','fit','fit'};
-jobLayout.RowHeight = {22, 22, 35, 22, 22, 22, 22, 22, 30, 40};
+jobLayout.RowHeight = {35, 22, 22, 22, 22, 22, 30, 40,22,22};
 jobLayout.ColumnSpacing = 8;
 jobLayout.RowSpacing = 5;
 
-% --- Row 1: Save Config ---
-lbl = uilabel(jobLayout,'Text','Save Config:');
-lbl.Layout.Row = 1; lbl.Layout.Column = 1;
 
-saveConfigField = uieditfield(jobLayout,'text','Value',fullfile(pwd,'config.mat'));
-saveConfigField.Layout.Row = 1; saveConfigField.Layout.Column = 2;
-
-browseSaveFolderBtn = uibutton(jobLayout,'Text','Browse','ButtonPushedFcn',@(btn,event) browseSaveFolder());
-browseSaveFolderBtn.Layout.Row = 1; browseSaveFolderBtn.Layout.Column = 3;
-
-saveConfigBtn = uibutton(jobLayout,'Text','Save','ButtonPushedFcn',@(btn,event) saveConfig());
-saveConfigBtn.Layout.Row = 1; saveConfigBtn.Layout.Column = 4;
-
-% --- Row 2: Load Config ---
-lbl = uilabel(jobLayout,'Text','Load Config:');
-lbl.Layout.Row = 2; lbl.Layout.Column = 1;
-
-loadConfigField = uieditfield(jobLayout,'text','Value',fullfile(pwd,'config.mat'));
-loadConfigField.Layout.Row = 2; loadConfigField.Layout.Column = 2;
-
-
-browseLoadFolderBtn = uibutton(jobLayout,'Text','Browse','ButtonPushedFcn',@(btn,event) browseLoadFile());
-browseLoadFolderBtn.Layout.Row = 2; browseLoadFolderBtn.Layout.Column = 3;
-
-loadConfigBtn = uibutton(jobLayout,'Text','Load','ButtonPushedFcn',@(btn,event) loadConfig());
-loadConfigBtn.Layout.Row = 2; loadConfigBtn.Layout.Column = 4;
-
-% Row 3: checkboxes
+% Row 1: checkboxes
 checkLayout = uigridlayout(jobLayout, [1, 5]);
-checkLayout.Layout.Row = 3; checkLayout.Layout.Column = [1 4];
+checkLayout.Layout.Row = 1; checkLayout.Layout.Column = [1 4];
 checkLayout.ColumnWidth = {'1x','1x','1x','1x','1x'};
 ignoreState = uicheckbox(checkLayout, 'Text', 'Ignore State', 'ValueChangedFcn', @(src,event) toggleUseMixed());
 useMixed = uicheckbox(checkLayout, 'Text', 'Use Mixed');
@@ -100,20 +74,20 @@ randomDistrib = uicheckbox(checkLayout, 'Text', 'Random Distrib');
 biggerFirst = uicheckbox(checkLayout, 'Text', 'Bigger First');
 
 % Numeric fields
-lbl = uilabel(jobLayout, 'Text', 'Prefered CPUs:'); lbl.Layout.Row = 4; lbl.Layout.Column = 1;
-prefCPU = uieditfield(jobLayout, 'numeric', 'Value', 4,'Tooltip','Prefered number of CPUs assigned to each job. Final number may be larger when jobs are constrained by memory.'); prefCPU.Layout.Row = 4; prefCPU.Layout.Column = 2;
-lbl = uilabel(jobLayout, 'Text', 'Min. CPUs:'); lbl.Layout.Row = 5; lbl.Layout.Column = 1;
-minCPU = uieditfield(jobLayout, 'numeric', 'Value', 4,'Tooltip','Minimum number of CPUs acceptable to be assigned to a job.'); minCPU.Layout.Row = 5; minCPU.Layout.Column = 2;
-lbl = uilabel(jobLayout, 'Text', 'Minimum Memory:'); lbl.Layout.Row = 6; lbl.Layout.Column = 1;
-minMemTot = uieditfield(jobLayout, 'numeric', 'Value', 40000,'Tooltip','Minimum total memory (in MB) allocated for a particular job.'); minMemTot.Layout.Row = 6; minMemTot.Layout.Column = 2;
-lbl = uilabel(jobLayout, 'Text', 'Delete Queues:'); lbl.Layout.Row= 7; lbl.Layout.Column = 1;
-delQueues = uieditfield(jobLayout, 'text','Tooltip','Comma-separated list of queues to remove from the sweep'); delQueues.Layout.Row = 7; delQueues.Layout.Column = 2;
-lbl = uilabel(jobLayout, 'Text', 'Delete Nodes:'); lbl.Layout.Row = 8; lbl.Layout.Column = 1;
-delNodes = uieditfield(jobLayout, 'text','Tooltip','Comma-separated list of nodes to remove from the sweep'); delNodes.Layout.Row = 8; delNodes.Layout.Column = 2;
+lbl = uilabel(jobLayout, 'Text', 'Prefered CPUs:'); lbl.Layout.Row = 2; lbl.Layout.Column = 1;
+prefCPU = uieditfield(jobLayout, 'numeric', 'Value', 4,'Tooltip','Prefered number of CPUs assigned to each job. Final number may be larger when jobs are constrained by memory.'); prefCPU.Layout.Row = 2; prefCPU.Layout.Column = [2 4];
+lbl = uilabel(jobLayout, 'Text', 'Min. CPUs:'); lbl.Layout.Row = 3; lbl.Layout.Column = 1;
+minCPU = uieditfield(jobLayout, 'numeric', 'Value', 4,'Tooltip','Minimum number of CPUs acceptable to be assigned to a job.'); minCPU.Layout.Row = 3; minCPU.Layout.Column = [2,4];
+lbl = uilabel(jobLayout, 'Text', 'Minimum Memory:'); lbl.Layout.Row = 4; lbl.Layout.Column = 1;
+minMemTot = uieditfield(jobLayout, 'numeric', 'Value', 40000,'Tooltip','Minimum total memory (in MB) allocated for a particular job.'); minMemTot.Layout.Row = 4; minMemTot.Layout.Column = [2,4];
+lbl = uilabel(jobLayout, 'Text', 'Delete Queues:'); lbl.Layout.Row= 5; lbl.Layout.Column = 1;
+delQueues = uieditfield(jobLayout, 'text','Tooltip','Comma-separated list of queues to remove from the sweep'); delQueues.Layout.Row = 5; delQueues.Layout.Column = [2,4];
+lbl = uilabel(jobLayout, 'Text', 'Delete Nodes:'); lbl.Layout.Row = 6; lbl.Layout.Column = 1;
+delNodes = uieditfield(jobLayout, 'text','Tooltip','Comma-separated list of nodes to remove from the sweep'); delNodes.Layout.Row = 6; delNodes.Layout.Column = [2,4];
 
 % Buttons row
 buttonLayout = uigridlayout(jobLayout, [1,4]);
-buttonLayout.Layout.Row = 9; buttonLayout.Layout.Column = [1 4];
+buttonLayout.Layout.Row = 7; buttonLayout.Layout.Column = [1 4];
 buttonLayout.ColumnWidth = {'1x','1x','1x','1x'}; buttonLayout.RowHeight = {30}; buttonLayout.Padding = [0 0 0 0];
 ClusterStateBtn = uibutton(buttonLayout, 'Text', 'Cluster state',...
     'ButtonPushedFcn', @(~,~)ClusterStateButtonPushed());
@@ -127,13 +101,41 @@ enumerateBtn = uibutton(buttonLayout, 'Text', 'Enumerate Possible Jobs',...
 
 % Add new row before the jobLog for the clustercommand
 clusterCmdLabel = uilabel(jobLayout, 'Text', {'Cluster','Command:'}, 'FontWeight', 'bold');
-clusterCmdLabel.Layout.Row = 10;   
+clusterCmdLabel.Layout.Row = 8;   
 clusterCmdLabel.Layout.Column = 1;
 
 clusterCmdArea = uitextarea(jobLayout);
-clusterCmdArea.Layout.Row = 10;
+clusterCmdArea.Layout.Row = 8;
 clusterCmdArea.Layout.Column = [2 4];
 clusterCmdArea.Value = {'comsol batch -np 4 -inputfile model.mph -outputfile Solved -batchlog Record.log'};
+
+
+% --- Row 1: Save Config ---
+lbl = uilabel(jobLayout,'Text','Save Config:');
+lbl.Layout.Row = 9; lbl.Layout.Column = 1;
+
+saveConfigField = uieditfield(jobLayout,'text','Value',fullfile(pwd,'config.mat'));
+saveConfigField.Layout.Row = 9; saveConfigField.Layout.Column = 2;
+
+browseSaveFolderBtn = uibutton(jobLayout,'Text','Browse','ButtonPushedFcn',@(btn,event) browseSaveFolder());
+browseSaveFolderBtn.Layout.Row = 9; browseSaveFolderBtn.Layout.Column = 3;
+
+saveConfigBtn = uibutton(jobLayout,'Text','Save','ButtonPushedFcn',@(btn,event) saveConfig());
+saveConfigBtn.Layout.Row = 9; saveConfigBtn.Layout.Column = 4;
+
+% --- Row 2: Load Config ---
+lbl = uilabel(jobLayout,'Text','Load Config:');
+lbl.Layout.Row = 10; lbl.Layout.Column = 1;
+
+loadConfigField = uieditfield(jobLayout,'text','Value',fullfile(pwd,'config.mat'));
+loadConfigField.Layout.Row = 10; loadConfigField.Layout.Column = 2;
+
+
+browseLoadFolderBtn = uibutton(jobLayout,'Text','Browse','ButtonPushedFcn',@(btn,event) browseLoadFile());
+browseLoadFolderBtn.Layout.Row = 10; browseLoadFolderBtn.Layout.Column = 3;
+
+loadConfigBtn = uibutton(jobLayout,'Text','Load','ButtonPushedFcn',@(btn,event) loadConfig());
+loadConfigBtn.Layout.Row = 10; loadConfigBtn.Layout.Column = 4;
 
 
 %% ------------------ Parameter Sweep Tab ------------------
