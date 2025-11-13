@@ -1,4 +1,5 @@
 # matlab-slurm-sweeper
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17596820.svg)](https://doi.org/10.5281/zenodo.17596820)
 > Distributed parameter sweep manager for MATLAB + Slurm clusters
 
 This software suite is designed to send parametric sweeps to distributed clusters that use Slurm as a queue manager, and then fetch the results. 
@@ -196,8 +197,12 @@ Written in Matlab 2025b and tested with a cluster running CentOS Linux release 7
 ## Future Work
 Future versions will include functionality to monitor and manage pending and running jobs, by cancelling them or re-launching them with different characteristics. 
 
-## Author and Citation
-Code written by Jaime Abad Arredondo, I can be contacted at jaimeabadarredondo(at)gmail.com. If you find this code useful, please consider referencing it by citing its, **and note about future DOI.**
+## Citation
+If you find this code useful, please consider referencing it as:
+> **Jaime Abad Arredondo.**  
+> *matlab-slurm-sweeper: Distributed parameter sweep manager for MATLAB + Slurm clusters.*  
+> Zenodo (2025). [https://doi.org/10.5281/zenodo.17596820](https://doi.org/10.5281/zenodo.17596820)
+
 
 ## License
 This project is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.  
