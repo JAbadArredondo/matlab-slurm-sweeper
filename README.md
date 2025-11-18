@@ -151,7 +151,7 @@ In Step 3, the simulation files are uploaded to the cluster so that when we popu
 ##### Job Launching Section
 In this section we find several UI components:
 |UI component| Description |
-|----|-----
+|----|-----|
 | Text-Field | Specify the particular simulation folders that the user wants to run. These have to be specified as a comma separated list of numbers corresponding to the created simulation folders. Ranges can be specified by dashes.|
 |Toggle *All*| When enabled, text-field is disabled and the program attempts to run all the numeric-labelled folders in the *Remote Path* folder.|
 |*Batch Specified Jobs* Button|When hit, the program goes to the *Remote Path* and runs the Slurm script contained in the folders as specified by the components above.|
